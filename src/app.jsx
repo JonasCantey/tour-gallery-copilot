@@ -5,7 +5,6 @@ import { useState, useEffect } from 'preact/hooks'
 //Task 2: Build TourCard Component
 //prompt: Create a card component to display a tour's name, info, image, and price
 // Include a "Not Interested" button that removes this tour when clicked
-import { TourCard } from './components/TourCard'
 import { Gallery } from './components/Gallery'
 import preactLogo from './assets/preact.svg'
 import viteLogo from '/vite.svg'
@@ -16,7 +15,7 @@ export function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  useEffect(() => {
+ 
     const fetchTours = async () => {
       setLoading(true)
       setError(null)
@@ -33,10 +32,8 @@ export function App() {
       } finally {
         setLoading(false)
       }
-      const removeTour = (id) => {
-        setTours((prevTours) => prevTours.filter((tour) => tour.id !== id))
     }
-
+    useEffect(() => {
     fetchTours()
   }, [])
 
@@ -69,7 +66,10 @@ export function App() {
         ) : error ? (
           <p>Error: {error}</p>
         ) : tours.length === 0 ? (
+          <div>
           <p>No tours available</p>
+          <button onClick={() => fetchTours()}>Refresh</button>
+        </div>
         ) : (
           <Gallery tours={tours} onRemove={removeTour} />
         )}
