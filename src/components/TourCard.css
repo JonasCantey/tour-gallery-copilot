@@ -11,3 +11,10 @@
   .tour-card-button:hover {
     background-color: #ff1a1a;
   }
+
+  .tour-card-image {
+    width: 100%; /* Ensures the image takes up the full width of its container */
+    height: 200px; /* Sets a fixed height for the images */
+    object-fit: cover; /* Ensures the image is cropped to fit the container without distortion */
+    border-radius: 8px; /* Optional: Adds rounded corners to the images */
+  }

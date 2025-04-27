@@ -20,7 +20,8 @@ export function App() {
       setLoading(true)
       setError(null)
       try {
-        const response = await fetch('https://course-api.com/react-tours-project')
+        const response = await fetch('/api/react-tours-project')
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
         }
@@ -40,27 +41,15 @@ export function App() {
   const removeTour = (id) => {
     setTours((prevTours) => prevTours.filter((tour) => tour.id !== id))
   }
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://preactjs.com" target="_blank">
-          <img src={preactLogo} class="logo preact" alt="Preact logo" />
-        </a>
-      </div>
-      <h1>Vite + Preact</h1>
-      <div class="card">
-        <p>Edit <code>src/app.jsx</code> and save to test HMR</p>
-      </div>
-      <div>
-        //Task 4: Conditional Rendering
+//Task 4: Conditional Rendering
         //prompts:
         // If loading is true, display "Loading..."
         // If error, display an error message
         // Else, render Gallery with tour data
+  return (
+    <>
+    <h1>Tour Destination Selector</h1>
+      <div>
         {loading ? (
           <p>Loading tours...</p>
         ) : error ? (
