@@ -1,21 +1,24 @@
-// Task 1: Set up API and App Structure
-// prompt "Fetch tours from https://course-api.com/react-tours-project using useEffect"
-// prompt "Store in state: tours, loading, error"
+//Task 1: Set up API and App Structure
+//prompt: Fetch tours from https://course-api.com/react-tours-project using useEffect
+//prompt: Store in state: tours, loading, error
 import { useState, useEffect } from 'preact/hooks'
+//Task 2: Build TourCard Component
+//prompt: Create a card component to display a tour's name, info, image, and price
+// Include a "Not Interested" button that removes this tour when clicked
+import { TourCard } from './components/TourCard'
 import preactLogo from './assets/preact.svg'
 import viteLogo from '/vite.svg'
 import './app.css'
 
 export function App() {
-  const [count, setCount] = useState(0)
   const [tours, setTours] = useState([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null) // State to store errors
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchTours = async () => {
       setLoading(true)
-      setError(null) // Reset error before fetching
+      setError(null)
       try {
         const response = await fetch('https://course-api.com/react-tours-project')
         if (!response.ok) {
@@ -24,7 +27,7 @@ export function App() {
         const data = await response.json()
         setTours(data)
       } catch (err) {
-        setError(err.message) // Store error message in state
+        setError(err.message)
         console.error('Error fetching tours:', err)
       } finally {
         setLoading(false)
@@ -33,6 +36,10 @@ export function App() {
 
     fetchTours()
   }, [])
+
+  const removeTour = (id) => {
+    setTours((prevTours) => prevTours.filter((tour) => tour.id !== id))
+  }
 
   return (
     <>
@@ -46,38 +53,27 @@ export function App() {
       </div>
       <h1>Vite + Preact</h1>
       <div class="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/app.jsx</code> and save to test HMR
-        </p>
+        <p>Edit <code>src/app.jsx</code> and save to test HMR</p>
       </div>
-      <p>
-        Check out{' '}
-        <a
-          href="https://preactjs.com/guide/v10/getting-started#create-a-vite-powered-preact-app"
-          target="_blank"
-        >
-          create-preact
-        </a>
-        , the official Preact + Vite starter
-      </p>
-      <p class="read-the-docs">
-        Click on the Vite and Preact logos to learn more
-      </p>
       <div>
         {loading ? (
           <p>Loading tours...</p>
         ) : error ? (
           <p>Error: {error}</p>
+        ) : tours.length === 0 ? (
+          <p>No tours available</p>
         ) : (
           <ul>
             {tours.map((tour) => (
               <li key={tour.id}>
-                <h2>{tour.name}</h2>
-                <p>{tour.info}</p>
-                <p>Price: ${tour.price}</p>
+                <TourCard
+                  id={tour.id}
+                  name={tour.name}
+                  info={tour.info}
+                  image={tour.image}
+                  price={tour.price}
+                  onRemove={removeTour}
+                />
               </li>
             ))}
           </ul>
