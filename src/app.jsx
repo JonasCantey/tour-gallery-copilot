@@ -59,6 +59,11 @@ export function App() {
         <p>Edit <code>src/app.jsx</code> and save to test HMR</p>
       </div>
       <div>
+        //Task 4: Conditional Rendering
+        //prompts:
+        // If loading is true, display "Loading..."
+        // If error, display an error message
+        // Else, render Gallery with tour data
         {loading ? (
           <p>Loading tours...</p>
         ) : error ? (
