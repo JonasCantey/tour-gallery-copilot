@@ -1,4 +1,4 @@
-// Task 1
+// Task 1: Set up API and App Structure
 // prompt "Fetch tours from https://course-api.com/react-tours-project using useEffect"
 // prompt "Store in state: tours, loading, error"
 import { useState, useEffect } from 'preact/hooks'
